@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Personal portfolio website using Three.js 3D models",
   "type": "module",
+  "homepage": "/sk.github.io",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp -r public/ dist/assets/",
     "preview": "vite preview"
   },
   "dependencies": {
