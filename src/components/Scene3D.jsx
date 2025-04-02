@@ -96,7 +96,7 @@ class Scene3D {
 
     loadModel() {
         const loader = new GLTFLoader();
-        const modelPath = '/assets/astronaut.glb';
+        const modelPath = './assets/models/astronaut.glb';
         
         console.log('Loading model from:', modelPath);
         
