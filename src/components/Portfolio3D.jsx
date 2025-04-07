@@ -51,7 +51,7 @@ const Portfolio3D = () => {
                 maxWidth: '800px',
                 margin: '0 auto'
             }}>
-                <h1>Welcome to My Portfolio</h1>
+                <h1>Welcome to My Portfolio [WIP] </h1>
                 <p>Interactive 3D Experience</p>
                 {isLoading && (
                     <div style={{
