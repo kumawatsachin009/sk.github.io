@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build && cp -r public/* dist/",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev": "vite"
   },
   "dependencies": {
     "three": "^0.162.0",
