@@ -4,7 +4,7 @@
   "description": "Personal portfolio website using Three.js 3D models",
   "type": "module",
   "scripts": {
-    "build": "vite build && cp -r public/* dist/",
+    "build": "vite build",
     "preview": "vite preview",
     "dev": "vite"
   },
