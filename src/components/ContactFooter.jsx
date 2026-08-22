@@ -21,7 +21,7 @@ const ContactFooter = () => {
             padding: '3rem 2.5rem',
             textAlign: 'center',
             marginBottom: '4rem',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%)',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(56, 189, 248, 0.05) 100%)',
             border: '1px solid var(--border-accent)',
           }}
         >

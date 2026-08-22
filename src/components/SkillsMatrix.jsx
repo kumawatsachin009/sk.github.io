@@ -124,8 +124,8 @@ const SkillsMatrix = () => {
                   fontWeight: 600,
                   cursor: 'pointer',
                   border: isActive ? '1px solid var(--border-accent)' : '1px solid var(--border-subtle)',
-                  background: isActive ? 'rgba(99, 102, 241, 0.18)' : 'rgba(255, 255, 255, 0.03)',
-                  color: isActive ? '#a5b4fc' : 'var(--text-secondary)',
+                  background: isActive ? 'var(--accent-primary-soft)' : 'rgba(255, 255, 255, 0.02)',
+                  color: isActive ? '#c7d2fe' : 'var(--text-secondary)',
                   transition: 'all var(--transition-fast)',
                 }}
               >

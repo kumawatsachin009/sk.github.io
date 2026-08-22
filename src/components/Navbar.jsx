@@ -54,14 +54,14 @@ const Navbar = ({ onOpenArchitectureModal }) => {
               width: '36px',
               height: '36px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)',
+              background: 'linear-gradient(135deg, #6366f1 0%, #38bdf8 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '1.1rem',
+              fontSize: '1.05rem',
               color: '#ffffff',
-              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)',
+              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.25)',
             }}
           >
             SK

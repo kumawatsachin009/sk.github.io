@@ -10,7 +10,7 @@ const SystemArchitectureModal = ({ isOpen, onClose }) => {
     { id: 'payout-engine', label: 'Distributed Payout Engine', icon: IconServer },
     { id: 'fsm-lifecycle', label: 'Deterministic FSM & Concurrency', icon: IconGitBranch },
     { id: 'health-failover', label: 'Circuit Breaker & Partner Health', icon: IconActivity },
-    { id: 'vba-attribution', label: '3-Tier Deposit Attribution', icon: IconShield },
+    { id: 'deposit-attribution', label: '3-Tier Deposit Attribution', icon: IconShield },
   ];
 
   return (
@@ -248,7 +248,7 @@ const SystemArchitectureModal = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {activeTab === 'vba-attribution' && (
+          {activeTab === 'deposit-attribution' && (
             <div>
               <h3 style={{ fontSize: '1.15rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
                 3-Tier Deposit Attribution & Normalization Engine
