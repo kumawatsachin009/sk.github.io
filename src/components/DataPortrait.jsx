@@ -1,31 +1,67 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { IconCpu, IconActivity, IconZap, IconLayers } from './Icons';
+import { IconCpu, IconServer, IconActivity, IconAward, IconDatabase, IconZap, IconCheckCircle } from './Icons';
+
+// Sachin Kumawat's Engineering Knowledge & Skills Topology Nodes
+const SKILL_NODES = [
+  // Distributed Systems
+  { id: 'fsm', label: '17-State FSM', category: 'distributed', size: 1.4, desc: 'Deterministic state machine with CAS concurrency & zero double-debit', metric: '17 Transitions' },
+  { id: 'kafka', label: 'Apache Kafka', category: 'distributed', size: 1.3, desc: 'Event-driven streaming for terminal wallet debits & async workflows', metric: '10K+ msg/mo' },
+  { id: 'circuit_breaker', label: 'Circuit Breaker', category: 'distributed', size: 1.2, desc: 'Automated partner rail health breach detection & dynamic failover', metric: '99.9% Uptime' },
+  { id: 'grpc', label: 'gRPC & Protobuf', category: 'distributed', size: 1.1, desc: 'Strict API contract freezes & cross-service RPC communication', metric: 'Sub-ms RPC' },
+  { id: 'idempotency', label: 'Idempotency & Outbox', category: 'distributed', size: 1.2, desc: 'Transactional outbox pattern guaranteeing zero orphaned locks', metric: 'Zero Loss' },
+
+  // Backend & Languages
+  { id: 'go', label: 'Go (Golang)', category: 'backend', size: 1.4, desc: 'High-throughput microservices and concurrent payout pipelines', metric: 'Core Stack' },
+  { id: 'rails', label: 'Ruby on Rails', category: 'backend', size: 1.3, desc: 'Core business engines, API gateways, and account normalization', metric: 'Production' },
+  { id: 'nodejs', label: 'Node.js', category: 'backend', size: 1.2, desc: 'Support platforms, profile APIs, and MCP automation tooling', metric: 'Microservices' },
+  { id: 'python', label: 'Python', category: 'backend', size: 1.1, desc: 'NLP pipelines (spaCy/NLTK) & automated document parsing', metric: '92% F1' },
+  { id: 'mcp', label: 'Model Context Protocol', category: 'backend', size: 1.2, desc: 'Agentic AI tool-calling infrastructure for on-ramp & off-ramp flows', metric: '10+ Flows' },
+
+  // Data & Caching
+  { id: 'postgres', label: 'PostgreSQL', category: 'data', size: 1.3, desc: 'Relational data modeling, ACID transactions, and query optimization', metric: 'Primary DB' },
+  { id: 'redis', label: 'Redis', category: 'data', size: 1.4, desc: 'Distributed caching, session locking, and real-time health states', metric: '<5ms Cache' },
+  { id: 'elasticsearch', label: 'Elasticsearch', category: 'data', size: 1.1, desc: 'Optimized search queries for high-volume entity indexing', metric: '-50% Latency' },
+
+  // Production Scale & Impact
+  { id: 'scale_p95', label: 'Sub-200ms P95', category: 'impact', size: 1.5, desc: 'Consistently optimized API latency with Datadog & Grafana telemetry', metric: 'P95 < 200ms' },
+  { id: 'scale_ops', label: '16K+ Ops/mo Automated', category: 'impact', size: 1.4, desc: 'Streamlined profile verification workflows reducing operational cost by 40%', metric: '40% Savings' },
+  { id: 'scale_queries', label: '10K+ Monthly Queries', category: 'impact', size: 1.3, desc: 'High-availability customer support & payment platform processing scale', metric: '99.9% SLA' },
+
+  // Academic & Honors
+  { id: 'iit_ropar', label: 'IIT Ropar (B.Tech)', category: 'honors', size: 1.3, desc: 'Computer Science coursework & strong engineering foundations', metric: '2018–2022' },
+  { id: 'whale_award', label: 'Whale of the Quarter', category: 'honors', size: 1.4, desc: 'CoinDCX top engineering & leadership recognition', metric: 'Q2 2024' },
+];
+
+const CATEGORIES = [
+  { id: 'all', label: 'Full Engineering DNA', color: '#818cf8' },
+  { id: 'distributed', label: 'Distributed Systems', color: '#6366f1' },
+  { id: 'backend', label: 'Backend & Languages', color: '#38bdf8' },
+  { id: 'data', label: 'Databases & Caching', color: '#06b6d4' },
+  { id: 'impact', label: 'Production Scale & Impact', color: '#10b981' },
+  { id: 'honors', label: 'Honors & Education', color: '#f59e0b' },
+];
 
 const DataPortrait = () => {
   const mountRef = useRef(null);
-  const [computeMode, setComputeMode] = useState('harmonic'); // 'harmonic' | 'vector' | 'attractor'
-  const [turbulence, setTurbulence] = useState(0.5);
-  const [resonance, setResonance] = useState(0.4);
-  const [stats, setStats] = useState({ computeTime: '0.28ms', fps: 60, particleCount: 3600 });
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedNode, setSelectedNode] = useState(SKILL_NODES[0]);
+  const [hoveredNode, setHoveredNode] = useState(null);
 
-  // Refs for animation loop access without re-creating scene
-  const paramsRef = useRef({ computeMode: 'harmonic', turbulence: 0.5, resonance: 0.4 });
-
+  const activeCategoryRef = useRef(activeCategory);
   useEffect(() => {
-    paramsRef.current = { computeMode, turbulence, resonance };
-  }, [computeMode, turbulence, resonance]);
+    activeCategoryRef.current = activeCategory;
+  }, [activeCategory]);
 
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
 
     const width = container.clientWidth;
-    const height = container.clientHeight || 450;
+    const height = container.clientHeight || 460;
 
-    // Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 1000);
     camera.position.z = 4.2;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -33,339 +69,287 @@ const DataPortrait = () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // Particle Geometry & Simulation Setup
-    const COUNT = 3600;
-    const positions = new Float32Array(COUNT * 3);
-    const colors = new Float32Array(COUNT * 3);
-    const basePositions = new Float32Array(COUNT * 3);
+    // Group for nodes and connection lines
+    const group = new THREE.Group();
+    scene.add(group);
 
-    // Generate base mathematical distribution
-    for (let i = 0; i < COUNT; i++) {
-      const u = Math.random() * Math.PI * 2;
-      const v = (Math.random() - 0.5) * Math.PI;
+    // Create 3D Nodes based on SKILL_NODES
+    const nodeMeshes = [];
+    const numNodes = SKILL_NODES.length;
 
-      // Base sphere distribution
-      const r = 1.4 + (Math.random() - 0.5) * 0.3;
-      const x = r * Math.cos(v) * Math.cos(u);
-      const y = r * Math.cos(v) * Math.sin(u);
-      const z = r * Math.sin(v);
+    SKILL_NODES.forEach((node, idx) => {
+      // Golden spiral distribution on sphere
+      const phi = Math.acos(-1 + (2 * idx) / numNodes);
+      const theta = Math.sqrt(numNodes * Math.PI) * phi;
+      const radius = 1.45;
 
-      positions[i * 3] = x;
-      positions[i * 3 + 1] = y;
-      positions[i * 3 + 2] = z;
+      const x = radius * Math.cos(theta) * Math.sin(phi);
+      const y = radius * Math.sin(theta) * Math.sin(phi);
+      const z = radius * Math.cos(phi);
 
-      basePositions[i * 3] = x;
-      basePositions[i * 3 + 1] = y;
-      basePositions[i * 3 + 2] = z;
+      const colorMap = {
+        distributed: 0x6366f1,
+        backend: 0x38bdf8,
+        data: 0x06b6d4,
+        impact: 0x10b981,
+        honors: 0xf59e0b,
+      };
 
-      // Soothing gradient colors: soft indigo to sky cyan
-      const ratio = i / COUNT;
-      colors[i * 3] = 0.38 + 0.25 * Math.sin(ratio * Math.PI * 2); // R
-      colors[i * 3 + 1] = 0.55 + 0.35 * Math.cos(ratio * Math.PI); // G
-      colors[i * 3 + 2] = 0.95; // B (cyan/indigo dominant)
-    }
+      const baseColor = colorMap[node.category] || 0x818cf8;
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      const geo = new THREE.SphereGeometry(0.06 * node.size, 16, 16);
+      const mat = new THREE.MeshBasicMaterial({
+        color: baseColor,
+        transparent: true,
+        opacity: 0.9,
+      });
 
-    // Particle texture / soft point material
-    const material = new THREE.PointsMaterial({
-      size: 0.042,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(x, y, z);
+      mesh.userData = { ...node, originalColor: baseColor };
+
+      group.add(mesh);
+      nodeMeshes.push(mesh);
     });
 
-    const particleSystem = new THREE.Points(geometry, material);
-    scene.add(particleSystem);
+    // Create dynamic interconnection lines between related nodes
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x6366f1,
+      transparent: true,
+      opacity: 0.25,
+    });
 
-    // Mouse tracking
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetRotationX = 0;
-    let targetRotationY = 0;
+    const lineGeo = new THREE.BufferGeometry();
+    const linePositions = [];
 
-    const handleMouseMove = (e) => {
+    for (let i = 0; i < nodeMeshes.length; i++) {
+      for (let j = i + 1; j < nodeMeshes.length; j++) {
+        const p1 = nodeMeshes[i].position;
+        const p2 = nodeMeshes[j].position;
+        const dist = p1.distanceTo(p2);
+
+        // Connect if close or in same category
+        if (dist < 1.3 || nodeMeshes[i].userData.category === nodeMeshes[j].userData.category) {
+          linePositions.push(p1.x, p1.y, p1.z);
+          linePositions.push(p2.x, p2.y, p2.z);
+        }
+      }
+    }
+
+    lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    const lines = new THREE.LineSegments(lineGeo, lineMaterial);
+    group.add(lines);
+
+    // Mouse Raycasting & Interaction
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    let targetRotX = 0;
+    let targetRotY = 0;
+
+    const handlePointerMove = (e) => {
       const rect = container.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      mouseX = x;
-      mouseY = y;
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+
+      targetRotY = mouse.x * 0.5;
+      targetRotX = -mouse.y * 0.5;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(nodeMeshes);
+
+      if (intersects.length > 0) {
+        const hit = intersects[0].object.userData;
+        setHoveredNode(hit);
+        container.style.cursor = 'pointer';
+      } else {
+        setHoveredNode(null);
+        container.style.cursor = 'grab';
+      }
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
+    const handleClick = () => {
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(nodeMeshes);
+      if (intersects.length > 0) {
+        setSelectedNode(intersects[0].object.userData);
+      }
+    };
 
-    // Resize Handler
+    container.addEventListener('mousemove', handlePointerMove);
+    container.addEventListener('click', handleClick);
+
     const handleResize = () => {
       if (!container) return;
-      const newWidth = container.clientWidth;
-      const newHeight = container.clientHeight || 450;
-      camera.aspect = newWidth / newHeight;
+      const w = container.clientWidth;
+      const h = container.clientHeight || 460;
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
+      renderer.setSize(w, h);
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Animation & Math Compute Loop
+    // Animation Loop
     let animationFrameId;
     let clock = new THREE.Clock();
-    let frameCount = 0;
-    let lastStatsUpdate = performance.now();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-
-      const startTime = performance.now();
       const elapsedTime = clock.getElapsedTime();
-      const { computeMode: mode, turbulence: turb, resonance: res } = paramsRef.current;
 
-      const pos = geometry.attributes.position.array;
+      // Smooth auto-rotation with mouse influence
+      group.rotation.y = elapsedTime * 0.12 + targetRotY;
+      group.rotation.x = Math.sin(elapsedTime * 0.08) * 0.1 + targetRotX;
 
-      // In-browser mathematical vector transformation
-      for (let i = 0; i < COUNT; i++) {
-        const i3 = i * 3;
-        const bx = basePositions[i3];
-        const by = basePositions[i3 + 1];
-        const bz = basePositions[i3 + 2];
-
-        if (mode === 'harmonic') {
-          // Harmonic Torus & Spherical Harmonics
-          const freq = 2.5 * res + 1.0;
-          const wave = Math.sin(elapsedTime * 1.5 + bx * freq) * Math.cos(elapsedTime * 1.2 + by * freq);
-          const warp = 1 + wave * (0.25 * turb);
-
-          pos[i3] = bx * warp + Math.sin(elapsedTime * 0.8 + bz) * (0.15 * turb);
-          pos[i3 + 1] = by * warp + Math.cos(elapsedTime * 0.9 + bx) * (0.15 * turb);
-          pos[i3 + 2] = bz * warp;
-        } else if (mode === 'vector') {
-          // Vector Field & Flow Curl Deformation
-          const theta = elapsedTime * 0.6 + Math.sqrt(bx * bx + by * by) * (3.0 * res);
-          const curlX = Math.sin(theta) * (0.35 * turb);
-          const curlY = Math.cos(theta) * (0.35 * turb);
-
-          pos[i3] = bx + curlX;
-          pos[i3 + 1] = by + curlY;
-          pos[i3 + 2] = bz + Math.sin(elapsedTime + bx) * (0.2 * turb);
-        } else if (mode === 'attractor') {
-          // Parametric Lorenz/Clifford Attractor Field
-          const a = 1.6 + res;
-          const b = -0.6 * turb;
-          const c = 1.5;
-          const d = 0.7;
-
-          const nx = Math.sin(a * by) + c * Math.cos(a * bx);
-          const ny = Math.sin(b * bx) + d * Math.cos(b * by);
-
-          pos[i3] = bx * 0.6 + nx * 0.45;
-          pos[i3 + 1] = by * 0.6 + ny * 0.45;
-          pos[i3 + 2] = bz * 0.8 + Math.cos(elapsedTime * 1.2 + i) * (0.15 * turb);
-        }
-      }
-
-      geometry.attributes.position.needsUpdate = true;
-
-      // Smooth camera interpolation towards mouse
-      targetRotationY += (mouseX * 0.6 - targetRotationY) * 0.05;
-      targetRotationX += (mouseY * 0.6 - targetRotationX) * 0.05;
-
-      particleSystem.rotation.y = elapsedTime * 0.15 + targetRotationY;
-      particleSystem.rotation.x = Math.sin(elapsedTime * 0.1) * 0.1 + targetRotationX;
+      // Update node opacities based on active category
+      const currentCat = activeCategoryRef.current;
+      nodeMeshes.forEach((mesh) => {
+        const isMatch = currentCat === 'all' || mesh.userData.category === currentCat;
+        mesh.material.opacity = isMatch ? 0.95 : 0.2;
+        mesh.scale.setScalar(isMatch ? 1 : 0.6);
+      });
 
       renderer.render(scene, camera);
-
-      const endTime = performance.now();
-      const computeDuration = (endTime - startTime).toFixed(2);
-
-      frameCount++;
-      if (endTime - lastStatsUpdate > 600) {
-        setStats({
-          computeTime: `${computeDuration}ms`,
-          fps: Math.round((frameCount * 1000) / (endTime - lastStatsUpdate)),
-          particleCount: COUNT,
-        });
-        frameCount = 0;
-        lastStatsUpdate = endTime;
-      }
     };
 
     animate();
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mousemove', handlePointerMove);
+      container.removeEventListener('click', handleClick);
       cancelAnimationFrame(animationFrameId);
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
-      geometry.dispose();
-      material.dispose();
+      scene.clear();
       renderer.dispose();
     };
   }, []);
+
+  const displayNode = hoveredNode || selectedNode;
 
   return (
     <section id="portrait" className="section" style={{ padding: '4.5rem 0', position: 'relative' }}>
       <div className="container">
         <div className="section-header" style={{ marginBottom: '2.5rem' }}>
           <span className="section-tag">
-            <IconCpu size={14} />
-            In-Browser Mathematical Simulation
+            <IconZap size={14} />
+            Engineering Topology
           </span>
           <h2 className="section-title">
-            Interactive <span className="gradient-text-accent">Data Portrait</span>
+            Interactive <span className="gradient-text-accent">Skills & Impact Constellation</span>
           </h2>
           <p className="section-subtitle">
-            A real-time procedural vector field and harmonic particle topology calculated on-the-fly in your browser. Move your cursor to interact with the compute field.
+            An interactive 3D map of my core engineering competencies, production scale milestones, and backend architectures. Click or hover any node to inspect details.
           </p>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              style={{
+                padding: '0.45rem 1rem',
+                borderRadius: 'var(--radius-full)',
+                fontSize: '0.82rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                border: activeCategory === cat.id ? '1px solid var(--border-accent)' : '1px solid var(--border-subtle)',
+                background: activeCategory === cat.id ? 'var(--accent-primary-soft)' : 'rgba(255, 255, 255, 0.02)',
+                color: activeCategory === cat.id ? '#ffffff' : 'var(--text-secondary)',
+                transition: 'all var(--transition-fast)',
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
 
         <div
           className="glass-card"
           style={{
-            padding: '1.5rem',
-            border: '1px solid var(--border-accent)',
-            background: 'linear-gradient(135deg, rgba(14, 20, 34, 0.8) 0%, rgba(10, 14, 23, 0.9) 100%)',
+            padding: '1.75rem',
+            border: '1px solid var(--border-subtle)',
             display: 'grid',
-            gridTemplateColumns: 'minmax(280px, 1fr) 2fr minmax(240px, 1fr)',
-            gap: '1.5rem',
+            gridTemplateColumns: 'minmax(300px, 1.2fr) minmax(320px, 1fr)',
+            gap: '2rem',
             alignItems: 'center',
           }}
-          className="data-portrait-container"
+          className="constellation-grid"
         >
-          {/* Left Telemetry HUD */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Live Compute Telemetry
-            </div>
-
-            <div style={{ background: 'rgba(0, 0, 0, 0.25)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Matrix Compute Latency</span>
-                <span className="badge badge-emerald mono" style={{ fontSize: '0.72rem' }}>Sub-ms</span>
-              </div>
-              <div className="mono gradient-text-emerald" style={{ fontSize: '1.4rem', fontWeight: 700 }}>
-                {stats.computeTime}
-              </div>
-            </div>
-
-            <div style={{ background: 'rgba(0, 0, 0, 0.25)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Render Performance</span>
-                <span className="badge badge-cyan mono" style={{ fontSize: '0.72rem' }}>WebGL</span>
-              </div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                {stats.fps} <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>FPS</span>
-              </div>
-            </div>
-
-            <div style={{ background: 'rgba(0, 0, 0, 0.25)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Active Vector Nodes</span>
-                <span className="badge badge-accent mono" style={{ fontSize: '0.72rem' }}>Points</span>
-              </div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#c7d2fe' }}>
-                {stats.particleCount.toLocaleString()}
-              </div>
+          {/* 3D Interactive Constellation Canvas */}
+          <div style={{ position: 'relative' }}>
+            <div
+              ref={mountRef}
+              style={{
+                width: '100%',
+                height: '420px',
+                position: 'relative',
+              }}
+            />
+            <div style={{ position: 'absolute', bottom: '10px', left: '10px', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+              ✦ Drag or move cursor to rotate constellation · Click nodes to inspect
             </div>
           </div>
 
-          {/* Center 3D Mathematical Canvas */}
-          <div
-            ref={mountRef}
-            style={{
-              width: '100%',
-              height: '420px',
-              position: 'relative',
-              cursor: 'crosshair',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          />
-
-          {/* Right Interactive Controls */}
+          {/* Node Inspector Card */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Mathematical Controls
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span className="badge badge-accent mono" style={{ textTransform: 'uppercase', fontSize: '0.75rem' }}>
+                {displayNode.category}
+              </span>
+              <span className="badge badge-emerald mono" style={{ fontSize: '0.78rem' }}>
+                {displayNode.metric}
+              </span>
             </div>
 
-            {/* Topology Mode Buttons */}
             <div>
-              <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '0.5rem' }}>
-                Equation Topology
-              </label>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                {[
-                  { id: 'harmonic', label: 'Harmonic Torus Knot' },
-                  { id: 'vector', label: 'Vector Field Deformation' },
-                  { id: 'attractor', label: 'Clifford / Attractor' },
-                ].map((mode) => (
-                  <button
-                    key={mode.id}
-                    onClick={() => setComputeMode(mode.id)}
-                    style={{
-                      padding: '0.5rem 0.8rem',
-                      borderRadius: '6px',
-                      fontSize: '0.78rem',
-                      fontWeight: 600,
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      border: computeMode === mode.id ? '1px solid var(--border-accent)' : '1px solid var(--border-subtle)',
-                      background: computeMode === mode.id ? 'var(--accent-primary-soft)' : 'rgba(255, 255, 255, 0.02)',
-                      color: computeMode === mode.id ? '#ffffff' : 'var(--text-secondary)',
-                      transition: 'all var(--transition-fast)',
-                    }}
-                  >
-                    {mode.label}
-                  </button>
-                ))}
+              <h3 style={{ fontSize: '1.6rem', color: 'var(--text-primary)', marginBottom: '0.4rem' }}>
+                {displayNode.label}
+              </h3>
+              <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                {displayNode.desc}
+              </p>
+            </div>
+
+            {/* Quick Milestones Checklist */}
+            <div style={{ padding: '1rem', background: 'rgba(0, 0, 0, 0.25)', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+                Verified Production Context
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ color: 'var(--accent-emerald)' }}>✓</span>
+                  <span>Integrated in High-Throughput Microservices</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ color: 'var(--accent-cyan)' }}>✓</span>
+                  <span>Sub-200ms P95 & High Availability SLA</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ color: 'var(--accent-primary)' }}>✓</span>
+                  <span>CoinDCX & IntelleWings Production Verified</span>
+                </div>
               </div>
             </div>
 
-            {/* Turbulence Slider */}
+            {/* Quick Action */}
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
-                <span>Vector Turbulence</span>
-                <span className="mono">{turbulence.toFixed(2)}</span>
-              </div>
-              <input
-                type="range"
-                min="0.1"
-                max="1.0"
-                step="0.05"
-                value={turbulence}
-                onChange={(e) => setTurbulence(parseFloat(e.target.value))}
-                style={{ width: '100%', accentColor: 'var(--accent-primary)', cursor: 'pointer' }}
-              />
-            </div>
-
-            {/* Resonance Slider */}
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
-                <span>Harmonic Frequency</span>
-                <span className="mono">{resonance.toFixed(2)}</span>
-              </div>
-              <input
-                type="range"
-                min="0.1"
-                max="1.0"
-                step="0.05"
-                value={resonance}
-                onChange={(e) => setResonance(parseFloat(e.target.value))}
-                style={{ width: '100%', accentColor: 'var(--accent-cyan)', cursor: 'pointer' }}
-              />
+              <a href="#experience" className="btn btn-secondary" style={{ width: '100%', fontSize: '0.85rem' }}>
+                View in Experience Timeline →
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 960px) {
-          .data-portrait-container {
+        @media (max-width: 860px) {
+          .constellation-grid {
             grid-template-columns: 1fr !important;
           }
         }
