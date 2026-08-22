@@ -14,19 +14,17 @@ const ExperienceTimeline = () => {
       badge: 'Current Role',
       badgeClass: 'badge-emerald',
       summary:
-        'Leading backend architecture and distributed payments infrastructure, architecting high-throughput financial payout engines, automated banking health failover, event-driven microservices, and AI-driven automation workflows.',
+        'Senior backend engineer driving high-performance microservices, automated profile lifecycle engines, event-driven streaming, and AI tool-calling infrastructure.',
       bullets: [
-        'Spearheaded the architectural overhaul and consolidation of the fiat withdrawal pipeline into a unified, event-driven microservices ecosystem with a 17-transition deterministic state machine and Kafka-driven terminal wallet debit/unlock operations.',
-        'Designed deterministic payout state machines with zero double-credit risk (strict poll-only isolation, outbox pattern, CAS concurrency), eliminating orphaned locked balances.',
-        'Built automated bank partner health detection and circuit-breaker routing, dynamically excluding degraded rails and minimizing customer payout drop-offs.',
-        'Designed and deployed a microservices-based customer support platform processing 10,000+ monthly queries with 99.9% uptime, leveraging Apache Kafka for event-driven workflows and Redis for low-latency caching.',
-        'Engineered a 3-tier bidirectional account normalization and deposit attribution engine, resolving critical deposit misattribution RCA defects and preventing false auto-refunds.',
+        'Designed and deployed a microservices-based customer platform processing 10,000+ monthly queries with 99.9% uptime, leveraging Apache Kafka for event-driven architecture and Redis for caching.',
         'Developed automated profile management APIs that eliminated 16,000 manual operations monthly, reducing operational costs by 40% through streamlined verification workflows.',
-        'Built high-performance APIs with sub-200ms P95 latency, implementing comprehensive Datadog and Grafana telemetry for proactive incident response and SLO compliance.',
-        'Implemented Model Context Protocol (MCP) infrastructure for 10+ business flows for payments on-ramps, off-ramps, and rule-engine-based chatbot functionalities.',
-        'Led cross-functional collaboration with product, design, QA, and external banking vendors, accelerating deployment velocity by 60% while maintaining high code quality standards.',
+        'Built high-performance RESTful APIs with sub-200ms P95 latency, implementing comprehensive monitoring with Datadog and Grafana to maintain SLO compliance and proactive incident response.',
+        'Optimized customer onboarding flows, reducing user friction by 20% and increasing conversion rates by 5% across user verification processes.',
+        'Led cross-functional collaboration with product, design, QA, and external vendors, accelerating deployment velocity by 60% while maintaining high code quality standards.',
+        'Implemented Model Context Protocol (MCP) infrastructure for 10+ business flows for rule-engine-based workflows and data-driven chatbot automation.',
+        'Engineered high-concurrency state machines with CAS concurrency, automated failover, and zero orphaned transaction locks.',
       ],
-      skills: ['Go', 'gRPC', 'Ruby on Rails', 'Node.js', 'Apache Kafka', 'Redis', 'PostgreSQL', 'AWS', 'Datadog', 'Docker'],
+      skills: ['Go', 'Node.js', 'Ruby on Rails', 'Apache Kafka', 'Redis', 'PostgreSQL', 'AWS', 'Datadog', 'Docker', 'MCP'],
     },
     {
       id: 'intellewings',
@@ -37,12 +35,12 @@ const ExperienceTimeline = () => {
       badge: 'Internship',
       badgeClass: 'badge-accent',
       summary:
-        'Engineered production-grade Natural Language Processing (NLP) pipelines, distributed web scrapers, and computer vision recognition modules for anti-money laundering (AML) intelligence.',
+        'Engineered production-grade Natural Language Processing (NLP) pipelines, distributed web scrapers, and computer vision recognition modules for high-throughput data intelligence.',
       bullets: [
         'Built production-ready Named Entity Recognition (NER) pipeline achieving 92% F1-score using spaCy and NLTK, deployed as REST APIs serving 10,000+ daily requests with sub-150ms latency.',
         'Developed distributed web scraping infrastructure processing 50,000+ documents daily using Beautiful Soup for parallel data extraction from multiple online sources.',
         'Implemented YOLO-based face recognition module and optimized Elasticsearch queries, reducing search latency by 50% and improving ML pipeline accuracy by 25%.',
-        'Conducted comprehensive load testing with JMeter and designed multi-tier caching strategies that improved API throughput by 3x under peak concurrent load.',
+        'Conducted comprehensive load testing with JMeter and designed caching strategies that improved API throughput by 3x, supporting 100+ concurrent users under peak load.',
       ],
       skills: ['Python', 'spaCy', 'NLTK', 'Elasticsearch', 'Beautiful Soup', 'OpenCV', 'JMeter', 'REST APIs'],
     },
@@ -60,7 +58,7 @@ const ExperienceTimeline = () => {
             Professional <span className="gradient-text-accent">Experience</span>
           </h2>
           <p className="section-subtitle">
-            Demonstrated track record of delivering resilient backend systems, payment infrastructure, and automation at high scale.
+            Track record of delivering measurable, high-impact backend systems, APIs, and automation at scale.
           </p>
         </div>
 

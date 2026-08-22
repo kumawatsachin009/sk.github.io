@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { IconDownload, IconLayers, IconGitBranch } from './Icons';
+import { IconDownload, IconLayers } from './Icons';
 
-const Hero = ({ onOpenArchitectureModal }) => {
+const Hero = () => {
   const [imageError, setImageError] = useState(false);
 
   const metrics = [
-    { value: '10K+', label: 'Monthly Queries Processed', sub: '99.9% Production Uptime' },
-    { value: '<200ms', label: 'P95 API Latency', sub: 'Telemetry & SLO Monitored' },
-    { value: '17-State', label: 'Deterministic FSM', sub: 'CAS Concurrency & Zero Double-Debit' },
-    { value: '16K+', label: 'Manual Ops Automated/mo', sub: '40% Operational Cost Reduction' },
+    { value: '10K+', label: 'Monthly Processed Queries', sub: '99.9% Production Uptime SLA' },
+    { value: '<200ms', label: 'P95 API Latency', sub: 'Datadog & SLO Monitored' },
+    { value: '16K+', label: 'Operations Automated/mo', sub: '40% Operational Cost Reduction' },
+    { value: '60%', label: 'Deployment Velocity', sub: 'Cross-Functional Acceleration' },
   ];
 
   return (
@@ -50,7 +50,7 @@ const Hero = ({ onOpenArchitectureModal }) => {
                     display: 'inline-block',
                   }}
                 />
-                Senior Software Engineer · Distributed Systems & Backend
+                Senior Software Engineer · IIT Ropar Alumnus
               </div>
             </div>
 
@@ -63,7 +63,7 @@ const Hero = ({ onOpenArchitectureModal }) => {
                 color: 'var(--text-primary)',
               }}
             >
-              Building <span className="gradient-text-accent">High-Throughput</span> Distributed Engines & Resilient Financial Systems.
+              Building <span className="gradient-text-accent">High-Performance</span> Backend Systems & Scalable Microservices.
             </h1>
 
             <p
@@ -74,14 +74,14 @@ const Hero = ({ onOpenArchitectureModal }) => {
                 lineHeight: 1.6,
               }}
             >
-              Specialized in designing mission-critical payout gateways, idempotent state machines, event-driven microservices, and automated health failover for high-volume transactions.
+              Senior software developer with deep expertise in distributed event-driven systems (Kafka, Redis, PostgreSQL), API latency optimization, and automated lifecycle platforms delivering high-throughput production impact.
             </p>
 
             {/* CTAs */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem' }}>
               <a href="#systems" className="btn btn-primary">
                 <IconLayers size={17} />
-                Explore Systems
+                Explore Projects & Impact
               </a>
 
               <a
@@ -112,12 +112,12 @@ const Hero = ({ onOpenArchitectureModal }) => {
               )}
             </div>
             <div style={{ textAlign: 'center', marginTop: '0.6rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              IIT Ropar Alumnus
+              IIT Ropar · B.Tech
             </div>
           </div>
         </div>
 
-        {/* Soothing Metrics Strip */}
+        {/* Numbers-Centric Metrics Strip */}
         <div
           style={{
             display: 'grid',

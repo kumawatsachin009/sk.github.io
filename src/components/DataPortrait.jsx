@@ -1,45 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { IconCpu, IconServer, IconActivity, IconAward, IconDatabase, IconZap, IconCheckCircle } from './Icons';
+import { IconCpu, IconServer, IconActivity, IconAward, IconDatabase, IconZap } from './Icons';
 
-// Sachin Kumawat's Engineering Knowledge & Skills Topology Nodes
+// Sachin Kumawat's Real Engineering Stack & Measurable Impact Nodes
 const SKILL_NODES = [
-  // Distributed Systems
-  { id: 'fsm', label: '17-State FSM', category: 'distributed', size: 1.4, desc: 'Deterministic state machine with CAS concurrency & zero double-debit', metric: '17 Transitions' },
-  { id: 'kafka', label: 'Apache Kafka', category: 'distributed', size: 1.3, desc: 'Event-driven streaming for terminal wallet debits & async workflows', metric: '10K+ msg/mo' },
-  { id: 'circuit_breaker', label: 'Circuit Breaker', category: 'distributed', size: 1.2, desc: 'Automated partner rail health breach detection & dynamic failover', metric: '99.9% Uptime' },
-  { id: 'grpc', label: 'gRPC & Protobuf', category: 'distributed', size: 1.1, desc: 'Strict API contract freezes & cross-service RPC communication', metric: 'Sub-ms RPC' },
-  { id: 'idempotency', label: 'Idempotency & Outbox', category: 'distributed', size: 1.2, desc: 'Transactional outbox pattern guaranteeing zero orphaned locks', metric: 'Zero Loss' },
+  // Measurable Production Scale
+  { id: 'queries', label: '10K+ Queries/mo', category: 'impact', size: 1.5, desc: 'Processed monthly queries on event-driven microservices platform with 99.9% uptime', metric: '99.9% Uptime' },
+  { id: 'latency', label: 'Sub-200ms P95', category: 'impact', size: 1.5, desc: 'Engineered high-performance RESTful APIs monitored continuously via Datadog & Grafana', metric: 'P95 < 200ms' },
+  { id: 'automation', label: '16K+ Ops/mo Automated', category: 'impact', size: 1.4, desc: 'Automated user verification & profile workflows, reducing operational costs by 40%', metric: '40% Cost Drop' },
+  { id: 'velocity', label: '60% Deployment Velocity', category: 'impact', size: 1.3, desc: 'Accelerated team release cycles through CI/CD governance and cross-functional leadership', metric: '+60% Speed' },
+  { id: 'throughput', label: '3x Throughput Boost', category: 'impact', size: 1.3, desc: 'Optimized caching & connection pooling to scale concurrent capacity under peak load', metric: '3x Throughput' },
 
-  // Backend & Languages
-  { id: 'go', label: 'Go (Golang)', category: 'backend', size: 1.4, desc: 'High-throughput microservices and concurrent payout pipelines', metric: 'Core Stack' },
-  { id: 'rails', label: 'Ruby on Rails', category: 'backend', size: 1.3, desc: 'Core business engines, API gateways, and account normalization', metric: 'Production' },
-  { id: 'nodejs', label: 'Node.js', category: 'backend', size: 1.2, desc: 'Support platforms, profile APIs, and MCP automation tooling', metric: 'Microservices' },
-  { id: 'python', label: 'Python', category: 'backend', size: 1.1, desc: 'NLP pipelines (spaCy/NLTK) & automated document parsing', metric: '92% F1' },
-  { id: 'mcp', label: 'Model Context Protocol', category: 'backend', size: 1.2, desc: 'Agentic AI tool-calling infrastructure for on-ramp & off-ramp flows', metric: '10+ Flows' },
+  // Languages & Core Backend
+  { id: 'nodejs', label: 'Node.js', category: 'backend', size: 1.4, desc: 'Customer support platforms, automation services, and MCP tool-calling workflows', metric: 'Core Backend' },
+  { id: 'rails', label: 'Ruby on Rails', category: 'backend', size: 1.3, desc: 'Core platform logic, high-throughput APIs, and data normalization engines', metric: 'Production' },
+  { id: 'go', label: 'Go (Golang)', category: 'backend', size: 1.3, desc: 'Concurrent microservices, high-efficiency RPC services, and background workers', metric: 'High-Throughput' },
+  { id: 'python', label: 'Python', category: 'backend', size: 1.2, desc: 'Production NLP pipelines (92% F1), distributed data extraction, and document processing', metric: '92% F1 NER' },
+  { id: 'mcp', label: 'Model Context Protocol', category: 'backend', size: 1.2, desc: 'Standardized tool-calling infrastructure supporting 10+ automated business workflows', metric: '10+ Flows' },
 
-  // Data & Caching
-  { id: 'postgres', label: 'PostgreSQL', category: 'data', size: 1.3, desc: 'Relational data modeling, ACID transactions, and query optimization', metric: 'Primary DB' },
-  { id: 'redis', label: 'Redis', category: 'data', size: 1.4, desc: 'Distributed caching, session locking, and real-time health states', metric: '<5ms Cache' },
-  { id: 'elasticsearch', label: 'Elasticsearch', category: 'data', size: 1.1, desc: 'Optimized search queries for high-volume entity indexing', metric: '-50% Latency' },
+  // Distributed Systems & Messaging
+  { id: 'kafka', label: 'Apache Kafka', category: 'distributed', size: 1.4, desc: 'Distributed event streaming for asynchronous decoupled service architecture', metric: 'Event Bus' },
+  { id: 'redis', label: 'Redis Cache & Locks', category: 'distributed', size: 1.4, desc: 'Multi-tier distributed caching, session locking, and sub-5ms lookup speeds', metric: '<5ms Lookup' },
+  { id: 'aws', label: 'AWS Infrastructure', category: 'distributed', size: 1.2, desc: 'Cloud deployment across EC2, Lambda, Amazon SQS, and S3 object storage', metric: 'AWS Cloud' },
 
-  // Production Scale & Impact
-  { id: 'scale_p95', label: 'Sub-200ms P95', category: 'impact', size: 1.5, desc: 'Consistently optimized API latency with Datadog & Grafana telemetry', metric: 'P95 < 200ms' },
-  { id: 'scale_ops', label: '16K+ Ops/mo Automated', category: 'impact', size: 1.4, desc: 'Streamlined profile verification workflows reducing operational cost by 40%', metric: '40% Savings' },
-  { id: 'scale_queries', label: '10K+ Monthly Queries', category: 'impact', size: 1.3, desc: 'High-availability customer support & payment platform processing scale', metric: '99.9% SLA' },
+  // Databases & Optimization
+  { id: 'postgres', label: 'PostgreSQL', category: 'data', size: 1.3, desc: 'Relational schema design, ACID transactions, complex triggers, and query indexing', metric: 'Primary DB' },
+  { id: 'elasticsearch', label: 'Elasticsearch', category: 'data', size: 1.2, desc: 'Optimized entity search queries, cutting search response latency by 50%', metric: '-50% Latency' },
+  { id: 'mongodb', label: 'MongoDB', category: 'data', size: 1.1, desc: 'Document metadata storage and flexible schema management', metric: 'NoSQL' },
 
-  // Academic & Honors
-  { id: 'iit_ropar', label: 'IIT Ropar (B.Tech)', category: 'honors', size: 1.3, desc: 'Computer Science coursework & strong engineering foundations', metric: '2018–2022' },
-  { id: 'whale_award', label: 'Whale of the Quarter', category: 'honors', size: 1.4, desc: 'CoinDCX top engineering & leadership recognition', metric: 'Q2 2024' },
+  // Education & Honors
+  { id: 'iit_ropar', label: 'IIT Ropar (B.Tech)', category: 'honors', size: 1.4, desc: 'Bachelor of Technology from premier Indian Institute of Technology (2018–2022)', metric: 'B.Tech CS' },
+  { id: 'whale_award', label: 'Whale of the Quarter', category: 'honors', size: 1.4, desc: 'Recognized for exceptional engineering contributions and technical leadership (Q2 2024)', metric: 'CoinDCX Award' },
 ];
 
 const CATEGORIES = [
-  { id: 'all', label: 'Full Engineering DNA', color: '#818cf8' },
-  { id: 'distributed', label: 'Distributed Systems', color: '#6366f1' },
-  { id: 'backend', label: 'Backend & Languages', color: '#38bdf8' },
-  { id: 'data', label: 'Databases & Caching', color: '#06b6d4' },
-  { id: 'impact', label: 'Production Scale & Impact', color: '#10b981' },
-  { id: 'honors', label: 'Honors & Education', color: '#f59e0b' },
+  { id: 'all', label: 'All Developer DNA', color: '#818cf8' },
+  { id: 'impact', label: 'Production Scale & Numbers', color: '#10b981' },
+  { id: 'backend', label: 'Languages & Frameworks', color: '#38bdf8' },
+  { id: 'distributed', label: 'Event-Driven & Cloud', color: '#6366f1' },
+  { id: 'data', label: 'Databases & Storage', color: '#06b6d4' },
+  { id: 'honors', label: 'Education & Honors', color: '#f59e0b' },
 ];
 
 const DataPortrait = () => {
@@ -58,7 +58,7 @@ const DataPortrait = () => {
     if (!container) return;
 
     const width = container.clientWidth;
-    const height = container.clientHeight || 460;
+    const height = container.clientHeight || 440;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 1000);
@@ -69,16 +69,13 @@ const DataPortrait = () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // Group for nodes and connection lines
     const group = new THREE.Group();
     scene.add(group);
 
-    // Create 3D Nodes based on SKILL_NODES
     const nodeMeshes = [];
     const numNodes = SKILL_NODES.length;
 
     SKILL_NODES.forEach((node, idx) => {
-      // Golden spiral distribution on sphere
       const phi = Math.acos(-1 + (2 * idx) / numNodes);
       const theta = Math.sqrt(numNodes * Math.PI) * phi;
       const radius = 1.45;
@@ -88,16 +85,16 @@ const DataPortrait = () => {
       const z = radius * Math.cos(phi);
 
       const colorMap = {
-        distributed: 0x6366f1,
-        backend: 0x38bdf8,
-        data: 0x06b6d4,
         impact: 0x10b981,
+        backend: 0x38bdf8,
+        distributed: 0x6366f1,
+        data: 0x06b6d4,
         honors: 0xf59e0b,
       };
 
       const baseColor = colorMap[node.category] || 0x818cf8;
 
-      const geo = new THREE.SphereGeometry(0.06 * node.size, 16, 16);
+      const geo = new THREE.SphereGeometry(0.065 * node.size, 16, 16);
       const mat = new THREE.MeshBasicMaterial({
         color: baseColor,
         transparent: true,
@@ -112,11 +109,11 @@ const DataPortrait = () => {
       nodeMeshes.push(mesh);
     });
 
-    // Create dynamic interconnection lines between related nodes
+    // Connection Lines
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0x6366f1,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.22,
     });
 
     const lineGeo = new THREE.BufferGeometry();
@@ -128,8 +125,7 @@ const DataPortrait = () => {
         const p2 = nodeMeshes[j].position;
         const dist = p1.distanceTo(p2);
 
-        // Connect if close or in same category
-        if (dist < 1.3 || nodeMeshes[i].userData.category === nodeMeshes[j].userData.category) {
+        if (dist < 1.35 || nodeMeshes[i].userData.category === nodeMeshes[j].userData.category) {
           linePositions.push(p1.x, p1.y, p1.z);
           linePositions.push(p2.x, p2.y, p2.z);
         }
@@ -140,10 +136,9 @@ const DataPortrait = () => {
     const lines = new THREE.LineSegments(lineGeo, lineMaterial);
     group.add(lines);
 
-    // Mouse Raycasting & Interaction
+    // Mouse Interactions
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-
     let targetRotX = 0;
     let targetRotY = 0;
 
@@ -152,15 +147,14 @@ const DataPortrait = () => {
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
 
-      targetRotY = mouse.x * 0.5;
-      targetRotX = -mouse.y * 0.5;
+      targetRotY = mouse.x * 0.45;
+      targetRotX = -mouse.y * 0.45;
 
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(nodeMeshes);
 
       if (intersects.length > 0) {
-        const hit = intersects[0].object.userData;
-        setHoveredNode(hit);
+        setHoveredNode(intersects[0].object.userData);
         container.style.cursor = 'pointer';
       } else {
         setHoveredNode(null);
@@ -182,7 +176,7 @@ const DataPortrait = () => {
     const handleResize = () => {
       if (!container) return;
       const w = container.clientWidth;
-      const h = container.clientHeight || 460;
+      const h = container.clientHeight || 440;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -190,7 +184,6 @@ const DataPortrait = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // Animation Loop
     let animationFrameId;
     let clock = new THREE.Clock();
 
@@ -198,16 +191,14 @@ const DataPortrait = () => {
       animationFrameId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth auto-rotation with mouse influence
       group.rotation.y = elapsedTime * 0.12 + targetRotY;
-      group.rotation.x = Math.sin(elapsedTime * 0.08) * 0.1 + targetRotX;
+      group.rotation.x = Math.sin(elapsedTime * 0.08) * 0.08 + targetRotX;
 
-      // Update node opacities based on active category
       const currentCat = activeCategoryRef.current;
       nodeMeshes.forEach((mesh) => {
         const isMatch = currentCat === 'all' || mesh.userData.category === currentCat;
         mesh.material.opacity = isMatch ? 0.95 : 0.2;
-        mesh.scale.setScalar(isMatch ? 1 : 0.6);
+        mesh.scale.setScalar(isMatch ? 1 : 0.65);
       });
 
       renderer.render(scene, camera);
@@ -242,7 +233,7 @@ const DataPortrait = () => {
             Interactive <span className="gradient-text-accent">Skills & Impact Constellation</span>
           </h2>
           <p className="section-subtitle">
-            An interactive 3D map of my core engineering competencies, production scale milestones, and backend architectures. Click or hover any node to inspect details.
+            An interactive 3D map of verified developer competencies, production metrics, and tech stack. Click or hover any node to inspect.
           </p>
         </div>
 
@@ -292,7 +283,7 @@ const DataPortrait = () => {
               }}
             />
             <div style={{ position: 'absolute', bottom: '10px', left: '10px', fontSize: '0.74rem', color: 'var(--text-muted)' }}>
-              ✦ Drag or move cursor to rotate constellation · Click nodes to inspect
+              ✦ Move cursor to rotate constellation · Click nodes to inspect
             </div>
           </div>
 
@@ -316,23 +307,23 @@ const DataPortrait = () => {
               </p>
             </div>
 
-            {/* Quick Milestones Checklist */}
+            {/* Numbers & Verification Box */}
             <div style={{ padding: '1rem', background: 'rgba(0, 0, 0, 0.25)', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
               <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
-                Verified Production Context
+                Production Scale & Impact
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ color: 'var(--accent-emerald)' }}>✓</span>
-                  <span>Integrated in High-Throughput Microservices</span>
+                  <span>10,000+ monthly processed queries with 99.9% uptime</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ color: 'var(--accent-cyan)' }}>✓</span>
-                  <span>Sub-200ms P95 & High Availability SLA</span>
+                  <span>Sub-200ms P95 latency with Datadog & Grafana APM</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{ color: 'var(--accent-primary)' }}>✓</span>
-                  <span>CoinDCX & IntelleWings Production Verified</span>
+                  <span>16,000+ operations/mo automated (40% cost reduction)</span>
                 </div>
               </div>
             </div>
