@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Hero from './Hero';
+import DataPortrait from './DataPortrait';
 import FeaturedSystems from './FeaturedSystems';
 import ExperienceTimeline from './ExperienceTimeline';
 import SkillsMatrix from './SkillsMatrix';
@@ -21,6 +22,7 @@ const Portfolio = () => {
       {/* Main Content Sections */}
       <main>
         <Hero />
+        <DataPortrait />
         <FeaturedSystems />
         <ExperienceTimeline />
         <SkillsMatrix />

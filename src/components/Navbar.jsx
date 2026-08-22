@@ -14,6 +14,7 @@ const Navbar = ({ onOpenArchitectureModal }) => {
   }, []);
 
   const navLinks = [
+    { label: 'Data Portrait', href: '#portrait' },
     { label: 'Featured Systems', href: '#systems' },
     { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
