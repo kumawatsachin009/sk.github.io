@@ -19,18 +19,17 @@ const CanvasBackground = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // Particles configuration
-    const particleCount = Math.min(Math.floor((width * height) / 18000), 75);
+    const particleCount = Math.min(Math.floor((width * height) / 24000), 45);
     const particles = [];
 
     class Particle {
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.radius = Math.random() * 1.5 + 0.8;
-        this.baseAlpha = Math.random() * 0.35 + 0.15;
+        this.vx = (Math.random() - 0.5) * 0.2;
+        this.vy = (Math.random() - 0.5) * 0.2;
+        this.radius = Math.random() * 1.2 + 0.6;
+        this.alpha = Math.random() * 0.15 + 0.08;
       }
 
       update() {
@@ -47,7 +46,7 @@ const CanvasBackground = () => {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(129, 140, 248, ${this.baseAlpha})`;
+        ctx.fillStyle = `rgba(165, 180, 252, ${this.alpha})`;
         ctx.fill();
       }
     }
@@ -56,27 +55,12 @@ const CanvasBackground = () => {
       particles.push(new Particle());
     }
 
-    const connectDistance = 140;
+    const connectDistance = 120;
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Draw subtle background radial gradient
-      const gradient = ctx.createRadialGradient(
-        width * 0.5,
-        height * 0.3,
-        50,
-        width * 0.5,
-        height * 0.5,
-        Math.max(width, height) * 0.8
-      );
-      gradient.addColorStop(0, 'rgba(30, 27, 75, 0.25)');
-      gradient.addColorStop(0.5, 'rgba(15, 23, 42, 0.15)');
-      gradient.addColorStop(1, 'rgba(8, 12, 20, 0)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      // Connect particles
+      // Connect subtle particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -84,18 +68,17 @@ const CanvasBackground = () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectDistance) {
-            const alpha = (1 - dist / connectDistance) * 0.18;
+            const alpha = (1 - dist / connectDistance) * 0.08;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
-            ctx.lineWidth = 0.75;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
       }
 
-      // Update & Draw particles
       particles.forEach((p) => {
         p.update();
         p.draw();

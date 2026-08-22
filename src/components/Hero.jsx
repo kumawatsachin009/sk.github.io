@@ -1,114 +1,136 @@
-import React from 'react';
-import { IconDownload, IconLayers, IconActivity, IconZap, IconShield, IconGitBranch } from './Icons';
+import React, { useState } from 'react';
+import { IconDownload, IconLayers, IconGitBranch } from './Icons';
 
 const Hero = ({ onOpenArchitectureModal }) => {
+  const [imageError, setImageError] = useState(false);
+
   const metrics = [
-    { value: '10K+', label: 'Monthly Processed Queries', sub: '99.9% Uptime SLA' },
-    { value: 'Sub-200ms', label: 'P95 API Latency', sub: 'Datadog & Grafana Monitored' },
+    { value: '10K+', label: 'Monthly Queries Processed', sub: '99.9% Production Uptime' },
+    { value: '<200ms', label: 'P95 API Latency', sub: 'Telemetry & SLO Monitored' },
     { value: '17-State', label: 'Deterministic FSM', sub: 'CAS Concurrency & Zero Double-Debit' },
-    { value: '16K+', label: 'Manual Ops Automated/mo', sub: '40% Cost Reduction' },
+    { value: '16K+', label: 'Manual Ops Automated/mo', sub: '40% Operational Cost Reduction' },
   ];
 
   return (
     <section
       style={{
-        paddingTop: '8.5rem',
-        paddingBottom: '4rem',
+        paddingTop: '8rem',
+        paddingBottom: '3.5rem',
         position: 'relative',
         zIndex: 2,
       }}
     >
       <div className="container">
-        {/* Availability Badge */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.4rem 0.9rem',
-              borderRadius: 'var(--radius-full)',
-              background: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid var(--border-emerald)',
-              fontSize: '0.84rem',
-              color: '#34d399',
-              fontWeight: 600,
-            }}
-          >
-            <span
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap-reverse', gap: '2.5rem', marginBottom: '3.5rem' }}>
+          
+          {/* Left Text Block */}
+          <div style={{ flex: '1 1 600px', maxWidth: '780px' }}>
+            {/* Status Pill */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.35rem 0.8rem',
+                  borderRadius: 'var(--radius-full)',
+                  background: 'var(--accent-emerald-soft)',
+                  border: '1px solid var(--border-emerald)',
+                  fontSize: '0.82rem',
+                  color: '#34d399',
+                  fontWeight: 600,
+                }}
+              >
+                <span
+                  style={{
+                    width: '7px',
+                    height: '7px',
+                    borderRadius: '50%',
+                    backgroundColor: '#10b981',
+                    display: 'inline-block',
+                  }}
+                />
+                Senior Software Engineer · Distributed Systems & Backend
+              </div>
+            </div>
+
+            <h1
               style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: '#10b981',
-                boxShadow: '0 0 10px #10b981',
-                display: 'inline-block',
+                fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)',
+                lineHeight: 1.18,
+                marginBottom: '1.25rem',
+                fontWeight: 800,
+                color: 'var(--text-primary)',
               }}
-            />
-            Senior Software Engineer · CoinDCX · IIT Ropar
+            >
+              Building <span className="gradient-text-accent">High-Throughput</span> Distributed Engines & Resilient Financial Systems.
+            </h1>
+
+            <p
+              style={{
+                fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
+                color: 'var(--text-secondary)',
+                marginBottom: '2rem',
+                lineHeight: 1.6,
+              }}
+            >
+              Specialized in designing mission-critical payout gateways, idempotent state machines, event-driven microservices, and automated health failover for high-volume transactions.
+            </p>
+
+            {/* CTAs */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem' }}>
+              <a href="#systems" className="btn btn-primary">
+                <IconLayers size={17} />
+                Explore Systems
+              </a>
+
+              <button
+                onClick={onOpenArchitectureModal}
+                className="btn btn-secondary"
+              >
+                <IconGitBranch size={17} />
+                Architecture Blueprint
+              </button>
+
+              <a
+                href="./assets/cv.pdf"
+                download="Sachin_Kumawat_CV.pdf"
+                className="btn btn-emerald"
+              >
+                <IconDownload size={17} />
+                Download Resume
+              </a>
+            </div>
+          </div>
+
+          {/* Right Avatar Frame */}
+          <div style={{ flexShrink: 0 }}>
+            <div className="avatar-frame">
+              {!imageError ? (
+                <img
+                  src="./assets/profile.jpg"
+                  alt="Sachin Kumawat"
+                  className="avatar-image"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div className="avatar-placeholder">
+                  SK
+                </div>
+              )}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '0.6rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+              IIT Ropar Alumnus
+            </div>
           </div>
         </div>
 
-        {/* Hero Title */}
-        <div style={{ maxWidth: '920px' }}>
-          <h1
-            style={{
-              fontSize: 'clamp(2.5rem, 5.5vw, 4rem)',
-              lineHeight: 1.15,
-              marginBottom: '1.5rem',
-              fontWeight: 800,
-            }}
-          >
-            Architecting <span className="gradient-text-accent">High-Throughput</span> Distributed Systems & Resilient FinTech Engines.
-          </h1>
-
-          <p
-            style={{
-              fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
-              color: 'var(--text-secondary)',
-              maxWidth: '780px',
-              marginBottom: '2.5rem',
-              lineHeight: 1.65,
-            }}
-          >
-            Specialized in designing mission-critical payment gateways, idempotent state machines, event-driven microservices, and multi-bank orchestration pipelines supporting high-volume financial scale.
-          </p>
-
-          {/* Action CTAs */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '4rem' }}>
-            <a href="#systems" className="btn btn-primary" style={{ padding: '0.85rem 1.6rem', fontSize: '0.96rem' }}>
-              <IconLayers size={18} />
-              Explore Core Systems
-            </a>
-
-            <button
-              onClick={onOpenArchitectureModal}
-              className="btn btn-secondary"
-              style={{ padding: '0.85rem 1.6rem', fontSize: '0.96rem' }}
-            >
-              <IconGitBranch size={18} />
-              Interactive Architecture Blueprint
-            </button>
-
-            <a
-              href="./assets/cv.pdf"
-              download="Sachin_Kumawat_CV.pdf"
-              className="btn btn-emerald"
-              style={{ padding: '0.85rem 1.6rem', fontSize: '0.96rem' }}
-            >
-              <IconDownload size={18} />
-              Download Resume
-            </a>
-          </div>
-        </div>
-
-        {/* Live Metrics Grid */}
+        {/* Soothing Metrics Strip */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
             gap: '1.25rem',
-            marginTop: '1rem',
           }}
         >
           {metrics.map((metric, idx) => (
@@ -116,25 +138,24 @@ const Hero = ({ onOpenArchitectureModal }) => {
               key={idx}
               className="glass-card"
               style={{
-                padding: '1.5rem',
-                borderLeft: idx === 0 ? '3px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
+                padding: '1.4rem',
               }}
             >
               <div
                 className="mono gradient-text-accent"
                 style={{
-                  fontSize: '2rem',
+                  fontSize: '1.85rem',
                   fontWeight: 700,
-                  marginBottom: '0.35rem',
-                  letterSpacing: '-0.03em',
+                  marginBottom: '0.25rem',
+                  letterSpacing: '-0.02em',
                 }}
               >
                 {metric.value}
               </div>
-              <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
+              <div style={{ fontWeight: 600, fontSize: '0.92rem', color: 'var(--text-primary)', marginBottom: '0.15rem' }}>
                 {metric.label}
               </div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                 {metric.sub}
               </div>
             </div>

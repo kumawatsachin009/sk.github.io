@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconCheckCircle, IconZap, IconAward } from './Icons';
+import { IconCheckCircle, IconZap } from './Icons';
 
 const ExperienceTimeline = () => {
   const [activeCompany, setActiveCompany] = useState('coindcx');
@@ -16,11 +16,11 @@ const ExperienceTimeline = () => {
       summary:
         'Leading backend architecture and distributed payments infrastructure, architecting high-throughput financial payout engines, automated banking health failover, event-driven microservices, and AI-driven automation workflows.',
       bullets: [
-        'Spearheaded the architectural design and consolidation of the INR fiat withdrawal pipeline into a unified, event-driven microservices ecosystem with a 17-transition deterministic state machine and Kafka-driven terminal wallet debit/unlock operations.',
+        'Spearheaded the architectural overhaul and consolidation of the fiat withdrawal pipeline into a unified, event-driven microservices ecosystem with a 17-transition deterministic state machine and Kafka-driven terminal wallet debit/unlock operations.',
         'Designed deterministic payout state machines with zero double-credit risk (strict poll-only isolation, outbox pattern, CAS concurrency), eliminating orphaned locked balances.',
-        'Built automated bank partner health detection and circuit-breaker routing across AU, PNB, Equitas, and InstantPay, dynamically excluding degraded rails and minimizing customer payout drop-offs.',
+        'Built automated bank partner health detection and circuit-breaker routing, dynamically excluding degraded rails and minimizing customer payout drop-offs.',
         'Designed and deployed a microservices-based customer support platform processing 10,000+ monthly queries with 99.9% uptime, leveraging Apache Kafka for event-driven workflows and Redis for low-latency caching.',
-        'Engineered a 3-tier bidirectional account normalization and VBA attribution engine, resolving critical deposit misattribution RCA defects and preventing false auto-refunds.',
+        'Engineered a 3-tier bidirectional account normalization and deposit attribution engine, resolving critical deposit misattribution RCA defects and preventing false auto-refunds.',
         'Developed automated profile management APIs that eliminated 16,000 manual operations monthly, reducing operational costs by 40% through streamlined verification workflows.',
         'Built high-performance APIs with sub-200ms P95 latency, implementing comprehensive Datadog and Grafana telemetry for proactive incident response and SLO compliance.',
         'Implemented Model Context Protocol (MCP) infrastructure for 10+ business flows for payments on-ramps, off-ramps, and rule-engine-based chatbot functionalities.',
@@ -54,7 +54,7 @@ const ExperienceTimeline = () => {
         <div className="section-header">
           <span className="section-tag">
             <IconZap size={14} />
-            Career Milestones
+            Career History
           </span>
           <h2 className="section-title">
             Professional <span className="gradient-text-accent">Experience</span>
@@ -64,25 +64,25 @@ const ExperienceTimeline = () => {
           </p>
         </div>
 
-        {/* Company Selector Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
+        {/* Company Selector */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', marginBottom: '2.25rem', flexWrap: 'wrap' }}>
           {experiences.map((exp) => (
             <button
               key={exp.id}
               onClick={() => setActiveCompany(exp.id)}
               style={{
-                padding: '0.65rem 1.4rem',
+                padding: '0.55rem 1.2rem',
                 borderRadius: 'var(--radius-md)',
-                fontSize: '0.92rem',
+                fontSize: '0.88rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 border: activeCompany === exp.id ? '1px solid var(--border-accent)' : '1px solid var(--border-subtle)',
-                background: activeCompany === exp.id ? 'rgba(99, 102, 241, 0.18)' : 'rgba(255, 255, 255, 0.03)',
+                background: activeCompany === exp.id ? 'var(--accent-primary-soft)' : 'rgba(255, 255, 255, 0.02)',
                 color: activeCompany === exp.id ? '#ffffff' : 'var(--text-secondary)',
                 transition: 'all var(--transition-fast)',
               }}
             >
-              {exp.company} ({exp.role})
+              {exp.company} — {exp.role}
             </button>
           ))}
         </div>
@@ -95,41 +95,40 @@ const ExperienceTimeline = () => {
               key={exp.id}
               className="glass-card"
               style={{
-                padding: '2.5rem',
-                border: '1px solid var(--border-subtle)',
+                padding: '2.25rem',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.35rem' }}>
-                    <h3 style={{ fontSize: '1.6rem', color: 'var(--text-primary)' }}>{exp.role}</h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.25rem' }}>
+                    <h3 style={{ fontSize: '1.45rem', color: 'var(--text-primary)' }}>{exp.role}</h3>
                     <span className={`badge ${exp.badgeClass}`}>{exp.badge}</span>
                   </div>
-                  <div style={{ fontSize: '1.1rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>
+                  <div style={{ fontSize: '1.05rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>
                     {exp.company} <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>· {exp.location}</span>
                   </div>
                 </div>
 
-                <div className="mono" style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', background: 'rgba(255, 255, 255, 0.05)', padding: '0.4rem 0.85rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                <div className="mono" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', background: 'rgba(255, 255, 255, 0.04)', padding: '0.35rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
                   {exp.period}
                 </div>
               </div>
 
-              <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '1.75rem', lineHeight: 1.65 }}>
+              <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
                 {exp.summary}
               </p>
 
-              <div style={{ marginBottom: '2rem' }}>
-                <h4 style={{ fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#e2e8f0', marginBottom: '1rem' }}>
+              <div style={{ marginBottom: '1.75rem' }}>
+                <h4 style={{ fontSize: '0.88rem', textTransform: 'uppercase', letterSpacing: '0.04em', color: '#e2e8f0', marginBottom: '0.85rem' }}>
                   Impact & Key Contributions
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {exp.bullets.map((bullet, bIdx) => (
-                    <div key={bIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                    <div key={bIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem' }}>
                       <div style={{ color: 'var(--accent-primary)', marginTop: '0.2rem', flexShrink: 0 }}>
-                        <IconCheckCircle size={17} />
+                        <IconCheckCircle size={16} />
                       </div>
-                      <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
                         {bullet}
                       </p>
                     </div>
@@ -138,12 +137,12 @@ const ExperienceTimeline = () => {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.6rem' }}>
+                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>
                   Technologies & Frameworks
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
                   {exp.skills.map((skill, sIdx) => (
-                    <span key={sIdx} className="badge badge-accent mono" style={{ fontSize: '0.8rem', padding: '0.3rem 0.7rem' }}>
+                    <span key={sIdx} className="badge badge-accent mono" style={{ fontSize: '0.78rem', padding: '0.25rem 0.65rem' }}>
                       {skill}
                     </span>
                   ))}
