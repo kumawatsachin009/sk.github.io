@@ -153,36 +153,6 @@ const FeaturedSystems = ({ onOpenArchitectureModal }) => {
             );
           })}
         </div>
-
-        {/* Blueprint Callout */}
-        <div
-          className="glass-card"
-          style={{
-            marginTop: '2.5rem',
-            padding: '1.75rem 2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1.25rem',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(56, 189, 248, 0.05) 100%)',
-            border: '1px solid var(--border-accent)',
-          }}
-        >
-          <div>
-            <h3 style={{ fontSize: '1.15rem', marginBottom: '0.3rem' }}>
-              Deep-Dive System Architecture Blueprint
-            </h3>
-            <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
-              Explore state machine transitions, concurrency controls, and circuit breaker mechanics.
-            </p>
-          </div>
-
-          <button onClick={onOpenArchitectureModal} className="btn btn-primary">
-            <IconGitBranch size={17} />
-            View Blueprint
-          </button>
-        </div>
       </div>
     </section>
   );

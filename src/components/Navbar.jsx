@@ -14,7 +14,6 @@ const Navbar = ({ onOpenArchitectureModal }) => {
   }, []);
 
   const navLinks = [
-    { label: 'Architecture', href: '#architecture', isModal: true },
     { label: 'Featured Systems', href: '#systems' },
     { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
@@ -22,11 +21,7 @@ const Navbar = ({ onOpenArchitectureModal }) => {
     { label: 'Education', href: '#education' },
   ];
 
-  const handleLinkClick = (e, link) => {
-    if (link.isModal && onOpenArchitectureModal) {
-      e.preventDefault();
-      onOpenArchitectureModal();
-    }
+  const handleLinkClick = () => {
     setMobileMenuOpen(false);
   };
 

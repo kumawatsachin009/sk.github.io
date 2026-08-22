@@ -84,18 +84,10 @@ const Hero = ({ onOpenArchitectureModal }) => {
                 Explore Systems
               </a>
 
-              <button
-                onClick={onOpenArchitectureModal}
-                className="btn btn-secondary"
-              >
-                <IconGitBranch size={17} />
-                Architecture Blueprint
-              </button>
-
               <a
                 href="./assets/cv.pdf"
                 download="Sachin_Kumawat_CV.pdf"
-                className="btn btn-emerald"
+                className="btn btn-secondary"
               >
                 <IconDownload size={17} />
                 Download Resume
