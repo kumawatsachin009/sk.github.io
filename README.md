@@ -1,33 +1,38 @@
-# Personal Portfolio Website
+# sk.github.io
 
-This is my personal portfolio website hosted on GitHub Pages. The site showcases my software development experience, education achievements, and professional projects.
+My personal site: a single-page portfolio built with React and Vite, deployed to GitHub Pages.
 
-## Features
+## What's on the page
 
-- Modern and responsive design using Jackely theme
-- Automatic theme regeneration on main branch pushes
-- Portfolio sections for:
-  - About Me
-  - Education
-  - Work Experience
-  - Projects
-  - Skills
-  - Contact Information
+- Intro and contact links
+- Experience (CoinDCX, IntelleWings)
+- Projects
+- Skills
+- Background (education, recognition, certification)
 
-## Setup
+The site is static — no 3D, no animation libraries, no client-side routing. Theme follows the
+system light/dark preference.
 
-1. The site is built using the Jackely theme
-2. Theme regeneration is handled automatically via GitHub Actions on pushes to the main branch
-3. The site is accessible at: https://[your-username].github.io
+## Local development
 
-## Local Development
+```bash
+npm install
+npm run dev
+```
 
-To run the site locally:
+## Build
 
-1. Clone the repository
-2. Install dependencies
-3. Run the development server
+```bash
+npm run build     # outputs to dist/
+npm run preview   # serve the production build
+```
 
-## License
+## Deployment
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds the site and publishes
+`dist/` to GitHub Pages.
+
+## Content
+
+CV content lives in `src/components/Experience.jsx`, `Skills.jsx` and `Background.jsx`.
+The downloadable CV is `public/assets/cv.pdf`.

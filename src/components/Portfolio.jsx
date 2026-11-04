@@ -1,39 +1,27 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Hero from './Hero';
-import DataPortrait from './DataPortrait';
-import FeaturedSystems from './FeaturedSystems';
-import ExperienceTimeline from './ExperienceTimeline';
-import SkillsMatrix from './SkillsMatrix';
+import Experience from './Experience';
 import Projects from './Projects';
-import EducationAndAwards from './EducationAndAwards';
+import Skills from './Skills';
+import Background from './Background';
 import ContactFooter from './ContactFooter';
-import CanvasBackground from './CanvasBackground';
 
-const Portfolio = () => {
-  return (
-    <div className="portfolio-app" style={{ position: 'relative', minHeight: '100vh' }}>
-      {/* Subtle Ambient Background */}
-      <CanvasBackground />
-
-      {/* Main Navigation */}
-      <Navbar />
-
-      {/* Main Content Sections */}
-      <main>
-        <Hero />
-        <DataPortrait />
-        <FeaturedSystems />
-        <ExperienceTimeline />
-        <SkillsMatrix />
-        <Projects />
-        <EducationAndAwards />
-      </main>
-
-      {/* Footer & Contact */}
-      <ContactFooter />
-    </div>
-  );
-};
+const Portfolio = () => (
+  <>
+    <a className="skip-link" href="#main">
+      Skip to content
+    </a>
+    <Navbar />
+    <main id="main">
+      <Hero />
+      <Experience />
+      <Projects />
+      <Skills />
+      <Background />
+    </main>
+    <ContactFooter />
+  </>
+);
 
 export default Portfolio;
