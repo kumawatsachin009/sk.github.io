@@ -26,7 +26,7 @@ const Hero = () => (
 
         <p className="lede">
           I work on the infrastructure behind reliable payments: bank routing, withdrawal ledgers,
-          and the systems that keep them humming. Currently building with <strong>Go and Ruby on Rails</strong> at CoinDCX.
+          and the systems that keep them humming. I build with <strong>Go and Ruby on Rails</strong>.
         </p>
 
         <div className="actions">

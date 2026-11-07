@@ -4,7 +4,6 @@ import Section from './Section';
 const experiences = [
   {
     role: 'Software Development Engineer 2',
-    company: 'CoinDCX',
     location: 'Bengaluru, India',
     period: 'Oct 2024 – Present',
     points: [
@@ -17,11 +16,10 @@ const experiences = [
   },
   {
     role: 'Software Development Engineer 1',
-    company: 'CoinDCX',
     location: 'Bengaluru, India',
     period: 'Jun 2022 – Oct 2024',
     points: [
-      'Built an OAuth 2.0 / M2M authenticated gateway between Sprinklr and the trading microservices, with zero-trust access, PII masking and data isolation.',
+      'Built an OAuth 2.0 / M2M authenticated gateway between Sprinklr and trading microservices, with zero-trust access, PII masking and data isolation.',
       'Automated KYC migrations and account recovery for 250,000+ user profiles, plus a human-in-the-loop gateway for high-risk state changes.',
       'Built secure retrieval APIs and a deterministic routing layer for customer chatbots, with guardrails against hallucination and prompt injection across 10+ payment flows.',
     ],
@@ -48,7 +46,8 @@ const Experience = () => (
           <div>
             <h3>{exp.role}</h3>
             <p className="entry-org">
-              {exp.company} <span aria-hidden="true">·</span> {exp.location}
+              {exp.company && <>{exp.company} <span aria-hidden="true">·</span> </>}
+              {exp.location}
             </p>
           </div>
           <span className="entry-meta">{exp.period}</span>

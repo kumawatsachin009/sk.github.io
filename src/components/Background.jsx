@@ -16,7 +16,7 @@ const Background = () => (
       <div className="row">
         <div className="row-label">Recognition</div>
         <div className="row-value">
-          <strong>Whale of the Quarter</strong> and <strong>2× Super Satoshi Award</strong> — CoinDCX, 2024
+          <strong>Whale of the Quarter</strong> and <strong>2× Super Satoshi Award</strong> · 2024
         </div>
       </div>
 
