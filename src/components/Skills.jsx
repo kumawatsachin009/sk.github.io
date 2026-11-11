@@ -20,13 +20,12 @@ const skills = [
     ],
   },
   {
-    label: 'AI & LLM tooling',
+    label: 'AI & LLM integration',
     value: [
-      'Model Context Protocol',
-      'LLM guardrails',
-      'Prompt injection prevention',
-      'Retrieval APIs (RAG)',
-      'Semantic routing',
+      'Retrieval/tool APIs',
+      'MCP-style tool APIs',
+      'OAuth 2.0 access boundaries',
+      'RAG concepts',
       'NLP (spaCy, NLTK)',
     ],
   },

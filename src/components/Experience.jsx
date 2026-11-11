@@ -21,9 +21,9 @@ const experiences = [
     points: [
       'Built an OAuth 2.0 / M2M authenticated gateway between Sprinklr and trading microservices, with zero-trust access, PII masking and data isolation.',
       'Automated KYC migrations and account recovery for 250,000+ user profiles, plus a human-in-the-loop gateway for high-risk state changes.',
-      'Built secure retrieval APIs and a deterministic routing layer for customer chatbots, with guardrails against hallucination and prompt injection across 10+ payment flows.',
+      'Built retrieval/tool APIs and request routing for a Sprinklr CRM integration over OAuth 2.0, serving 10+ payment flows and 10,000+ monthly LLM queries.',
     ],
-    stack: ['OAuth 2.0', 'MCP', 'Retrieval APIs', 'LLM guardrails'],
+    stack: ['OAuth 2.0', 'MCP-style tool APIs', 'Retrieval APIs', 'CRM integration'],
   },
   {
     role: 'Data Science Engineer Intern',
